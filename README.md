@@ -50,6 +50,9 @@ evaluation framework of word vectors
 - 大きいスコープでざっくり見るのと、Domain Specific なものを別々に検証できるといいかも？
 - Word to Sentence Vector Space で作成する word embedding の精度検証にも役立ちそう、というかそれで検証していい精度を出せるものが作れたら論文にできない？
 - @shoya 提案の数値を含めた Embedding も手法を考えてみたい。
+- ちゃんとSurveyしないとわからないけど，semanticな判定とsyntacticな判定も行えそう．
+  - fast <-> faster  (syntactic)
+  - fast <-> rapid  (semantic)
 
 ## 結果
 
