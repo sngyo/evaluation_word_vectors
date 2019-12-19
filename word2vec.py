@@ -5,12 +5,13 @@ import gensim
 import gensim.downloader as api
 
 
-FNAME = ('data/glove-wiki-gigawaord-100.txt')
+# FNAME = 'data/glove-wiki-gigawaord-100.txt'
+MODEL_NAME = 'glove-wiki-gigaword-100'
 
 
-class VectorLoader():
-    def __init__(self, fname=FNAME):
-        self.fname = fname
+class Word2Vec():
+    def __init__(self, modelname=MODEL_NAME):
+        self.modelname = modelname
         self.model = self._load_word2vec()
 
     def __call__(self, word_label):
@@ -18,23 +19,14 @@ class VectorLoader():
         
     def _load_word2vec(self):
         # load cache file if exists
-        cache_filename = self.fname.replace('.txt', '.pickle')
+        cache_filename = 'data/' + self.modelname + '.pickle'
         if os.path.exists(cache_filename):
             with open(cache_filename, 'rb') as f:
+                print('load from cache')
                 return pickle.load(f)
 
-        # check model file
-        try:
-            os.path.exists(self.fname)
-        except FileNotFoundError:
-            print('Wrong file or file path')
-            sys.exit(1)
-
         print('Load word2vec model file')
-
-        # TODO adapt for another fname
-        if self.fname == FNAME:
-            model = api.load('glove-wiki-gigaword-100')
+        model = api.load(self.modelname)
             
         # print('Create cache of word2vec model')
         with open(cache_filename, 'wb') as f:
@@ -48,10 +40,21 @@ class VectorLoader():
         else:
             return None
 
+    def most_similar(self, word_label):
+        return self.model.most_similar(word_label)
+
 
 # for debug
 if __name__ == "__main__":
-    vec_loader = VectorLoader()
-    print(vec_loader('apple'))
+    vec_loader = Word2Vec()
+    word_label = input('test word label: ')
+
+    # show word vector itself
+    # print(vec_loader(word_label))
+
+    # show 10 most similar words
+    sim_lis = vec_loader.most_similar(word_label)
+    for word in sim_lis:
+        print(word)
 
     
