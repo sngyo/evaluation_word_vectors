@@ -6,7 +6,6 @@ import gensim.downloader as api
 import argparse
 
 
-# FNAME = 'data/glove-wiki-gigawaord-100.txt'
 MODEL_NAMES = ['glove-wiki-gigaword-100', ]
 
 
@@ -42,11 +41,18 @@ class Word2Vec():
             return None
 
     def most_similar(self, word_label):
+        # get a list of 10 most similar words of word_label
+        # similarity is based on cos_similarity
         return self.model.most_similar(word_label)
+
+    def algebraic_operation(self, pos=[], neg=[]):
+        return self.model.most_similar(positive=pos, negative=neg)
 
 
 # for debug
 if __name__ == "__main__":
+
+    # argument [--model]
     
     parser = argparse.ArgumentParser()
     parser.add_argument(
@@ -59,6 +65,7 @@ if __name__ == "__main__":
     vec_loader = Word2Vec(modelname=args.model)
     word_label = input('test word label: ')
 
+    
     # show word vector itself
     # print(vec_loader(word_label))
 
@@ -67,4 +74,12 @@ if __name__ == "__main__":
     for word in sim_lis:
         print(word)
 
+    # show 10 most similar words after algebraic operation
+    pos = ['man', 'queen']
+    neg = ['woman']
+    sim_lis = vec_loader.algebraic_operation(pos, neg)
+    print('\n Exapmple of algebraci_operation')
+    print('Add all labels in [pos], subtract all labels in [neg]')
+    for word in sim_lis:
+        print(word)
     
