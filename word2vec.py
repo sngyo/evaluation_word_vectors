@@ -1,0 +1,93 @@
+import os
+import sys
+import pickle
+import gensim
+import gensim.downloader as api
+import argparse
+
+
+# load available model names
+MODEL_NAMES = []
+with open("data/model_names.txt") as f:
+    for line in f:
+        MODEL_NAMES.append(line.replace('\n', ''))
+
+
+class Word2Vec():
+    def __init__(self, modelname=MODEL_NAMES[0]):
+        self.modelname = modelname
+        self.model = self._load_word2vec()
+
+    def __call__(self, word_label):
+        return self._get_vec(word_label)
+        
+    def _load_word2vec(self):
+        os.makedirs('data/', exist_ok=True)
+        
+        # load cache file if exists
+        cache_filename = 'data/' + self.modelname + '.pickle'
+        if os.path.exists(cache_filename):
+            with open(cache_filename, 'rb') as f:
+                print('loading from cache')
+                return pickle.load(f)
+
+        print('Downloading word2vec model file')
+        model = api.load(self.modelname)
+            
+        print('Creating cache of word2vec model')
+        with open(cache_filename, 'wb') as f:
+            pickle.dump(model, f)
+        return model
+
+    def _get_vec(self, word_label):
+        if word_label in self.model:
+            return self.model[word_label]
+        # TODO is it okay [return None]?
+        else:
+            return None
+
+    def most_similar(self, word_label):
+        # get a list of 10 most similar words of word_label
+        # similarity is based on cos_similarity
+        return self.model.most_similar(word_label)
+
+    def algebraic_operation(self, pos=[], neg=[]):
+        # return pos[0] + pos[1] + ... - neg[0] - neg[1]...
+        return self.model.most_similar(positive=pos, negative=neg)
+
+
+# for debug
+if __name__ == "__main__":
+
+    # argument [--model]    
+    parser = argparse.ArgumentParser()
+    parser.add_argument(
+        '--model', '-m', metavar='model_name',
+        default=MODEL_NAMES[0], choices=MODEL_NAMES,
+        help='model name: ' + ' | '.join(MODEL_NAMES)\
+        + ' (default:' + MODEL_NAMES[0]+ ')'
+    )
+    args = parser.parse_args()
+    
+    vec_loader = Word2Vec(modelname=args.model)
+    word_label = input('test word label: ')
+
+    
+    # show word vector itself
+    # print(vec_loader(word_label))
+
+    # show 10 most similar words
+    sim_lis = vec_loader.most_similar(word_label)
+    for word in sim_lis:
+        print(word)
+
+    # show 10 most similar words after algebraic operation
+    pos = ['man', 'queen']
+    neg = ['woman']
+    sim_lis = vec_loader.algebraic_operation(pos, neg)
+    print('\n Exapmple of algebraci_operation')
+    print('(+) ' + str(pos))
+    print('(-) ' + str(neg))
+    for word in sim_lis:
+        print(word)
+    
