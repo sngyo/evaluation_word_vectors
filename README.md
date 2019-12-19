@@ -27,6 +27,7 @@ evaluation framework of word vectors
 - [ ] 里形との分担
 - [ ] データベースの検索 (word2vec，評価用データセット双方
 - [ ] フレームワークの骨子部分の作成
+- [ ] レポート
 
 
 ## 手法
