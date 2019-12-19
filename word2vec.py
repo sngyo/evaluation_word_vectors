@@ -6,7 +6,7 @@ import gensim.downloader as api
 import argparse
 
 
-# MODEL_NAMES = ['glove-wiki-gigaword-100', ]
+# load available model names
 MODEL_NAMES = []
 with open("data/model_names.txt") as f:
     for line in f:
@@ -28,13 +28,13 @@ class Word2Vec():
         cache_filename = 'data/' + self.modelname + '.pickle'
         if os.path.exists(cache_filename):
             with open(cache_filename, 'rb') as f:
-                print('load from cache')
+                print('loading from cache')
                 return pickle.load(f)
 
-        print('Load word2vec model file')
+        print('Downloading word2vec model file')
         model = api.load(self.modelname)
             
-        # print('Create cache of word2vec model')
+        print('Creating cache of word2vec model')
         with open(cache_filename, 'wb') as f:
             pickle.dump(model, f)
         return model
@@ -59,8 +59,7 @@ class Word2Vec():
 # for debug
 if __name__ == "__main__":
 
-    # argument [--model]
-    
+    # argument [--model]    
     parser = argparse.ArgumentParser()
     parser.add_argument(
         '--model', '-m', metavar='model_name',
@@ -87,7 +86,8 @@ if __name__ == "__main__":
     neg = ['woman']
     sim_lis = vec_loader.algebraic_operation(pos, neg)
     print('\n Exapmple of algebraci_operation')
-    print('Add all labels in [pos], subtract all labels in [neg]')
+    print('(+) ' + str(pos))
+    print('(-) ' + str(neg))
     for word in sim_lis:
         print(word)
     

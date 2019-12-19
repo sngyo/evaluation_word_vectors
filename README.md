@@ -13,8 +13,6 @@ evaluation framework of word vectors
 - step3．既存のものより精度がよくなっているかの指標になれば嬉しい
 
 
-
-
 ## TODO
 - [x] 先生へ連絡、返事待ち 
     > 斎藤です。システムの複数共同作成は可ですが、きちんと自分はどの分担
@@ -22,28 +20,29 @@ evaluation framework of word vectors
     あと、やはり他でやった作業をそのまま転用するのはあまりにレポートと
     して手抜き感があるので、今回のレポート用にオリジナル作業を入れるよ
     うにしてください。(どの部分がオリジナルかを明記して)
-- [x] githubかなんかで管理？
+- [ ] 共同レポート可能かチェック
+- [x] github化
+- [ ] gensim以外でword2vecのpretrained modelで使えそうなもの探す
 - [ ] Survey
 - [ ] 里形との分担
-- [ ] データベースの検索 (word2vec，評価用データセット双方
-- [ ] フレームワークの骨子部分の作成
+- [ ] 評価用データセット探す
+- [ ] 評価の手法考えて実装
 - [ ] レポート
 
 
-## 手法
+## Methods
 - ~~外省的評価：タスク先の(感情分析とか)性能によって評価する手法~~  ← こっちはやらない
 - 内省的評価：単語分散表現の性能を直接評価する方法。たとえば、人間が判断した単語類似度と分散表現による単語類似度の相関によって性能を評価。要するに、人間の評価に近い評価をできるようになれば良い。
 
 ## 使えそうなもの
 評価用データセットとして [WordSim353](http://www.cs.technion.ac.il/~gabr/resources/data/wordsim353/)や[SimLex999](https://fh295.github.io//simlex.html)。
 
-## Idea
+## Ideas
 - 大きいスコープでざっくり見るのと、Domain Specific なものを別々に検証できるといいかも？ by Fukuchi-san
 
 - まずは，コサイン類似度を利用？  
     類似語データセット(WordSim353やSimLex999)を利用  
     word2vec, Glove, (BERT), などの各手法のコサイン類似度を比較
-
 
 
 ### @sngyo's Ideas
@@ -54,7 +53,27 @@ evaluation framework of word vectors
   - fast <-> faster  (syntactic)
   - fast <-> rapid  (semantic)
 
-## 結果
+
+## Usage
+[Gensim-data](https://github.com/RaRe-Technologies/gensim-data)のモデルは全て使用可能.
+```bash
+python3 word2vec.py -m glove-wiki-gigaword-100
+
+test word label: apple
+('microsoft', 0.7449405789375305)
+('ibm', 0.6821643710136414)
+('intel', 0.6778088212013245)
+('software', 0.6775422096252441)
+('dell', 0.6741442680358887)
+('pc', 0.6678153276443481)
+('macintosh', 0.66175377368927)
+('iphone', 0.6595611572265625)
+('ipod', 0.6534676551818848)
+('hewlett', 0.6516579985618591)
+```
+
+
+## Results
 
 ## References
 - [単語分散表現の最適な次元数を決めるための指針](https://qiita.com/Hironsan/items/01fd880f1522e2025a78)
