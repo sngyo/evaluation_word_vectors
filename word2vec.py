@@ -6,7 +6,11 @@ import gensim.downloader as api
 import argparse
 
 
-MODEL_NAMES = ['glove-wiki-gigaword-100', ]
+# MODEL_NAMES = ['glove-wiki-gigaword-100', ]
+MODEL_NAMES = []
+with open("data/model_names.txt") as f:
+    for line in f:
+        MODEL_NAMES.append(line.replace('\n', ''))
 
 
 class Word2Vec():
@@ -18,6 +22,8 @@ class Word2Vec():
         return self._get_vec(word_label)
         
     def _load_word2vec(self):
+        os.makedirs('data/', exist_ok=True)
+        
         # load cache file if exists
         cache_filename = 'data/' + self.modelname + '.pickle'
         if os.path.exists(cache_filename):
@@ -46,6 +52,7 @@ class Word2Vec():
         return self.model.most_similar(word_label)
 
     def algebraic_operation(self, pos=[], neg=[]):
+        # return pos[0] + pos[1] + ... - neg[0] - neg[1]...
         return self.model.most_similar(positive=pos, negative=neg)
 
 
@@ -56,7 +63,8 @@ if __name__ == "__main__":
     
     parser = argparse.ArgumentParser()
     parser.add_argument(
-        '--model', '-m', default=MODEL_NAMES[0], choices=MODEL_NAMES,
+        '--model', '-m', metavar='model_name',
+        default=MODEL_NAMES[0], choices=MODEL_NAMES,
         help='model name: ' + ' | '.join(MODEL_NAMES)\
         + ' (default:' + MODEL_NAMES[0]+ ')'
     )
