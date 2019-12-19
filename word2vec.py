@@ -3,14 +3,15 @@ import sys
 import pickle
 import gensim
 import gensim.downloader as api
+import argparse
 
 
 # FNAME = 'data/glove-wiki-gigawaord-100.txt'
-MODEL_NAME = 'glove-wiki-gigaword-100'
+MODEL_NAMES = ['glove-wiki-gigaword-100', ]
 
 
 class Word2Vec():
-    def __init__(self, modelname=MODEL_NAME):
+    def __init__(self, modelname=MODEL_NAMES[0]):
         self.modelname = modelname
         self.model = self._load_word2vec()
 
@@ -46,7 +47,16 @@ class Word2Vec():
 
 # for debug
 if __name__ == "__main__":
-    vec_loader = Word2Vec()
+    
+    parser = argparse.ArgumentParser()
+    parser.add_argument(
+        '--model', '-m', default=MODEL_NAMES[0], choices=MODEL_NAMES,
+        help='model name: ' + ' | '.join(MODEL_NAMES)\
+        + ' (default:' + MODEL_NAMES[0]+ ')'
+    )
+    args = parser.parse_args()
+    
+    vec_loader = Word2Vec(modelname=args.model)
     word_label = input('test word label: ')
 
     # show word vector itself
