@@ -12,6 +12,9 @@ class VectorLoader():
     def __init__(self, fname=FNAME):
         self.fname = fname
         self.model = self._load_word2vec()
+
+    def __call__(self, word_label):
+        return self._get_vec(word_label)
         
     def _load_word2vec(self):
         # load cache file if exists
@@ -38,7 +41,17 @@ class VectorLoader():
             pickle.dump(model, f)
         return model
 
+    def _get_vec(self, word_label):
+        if word_label in self.model:
+            return self.model[word_label]
+        # TODO is it okay [return None]?
+        else:
+            return None
+
 
 # for debug
 if __name__ == "__main__":
     vec_loader = VectorLoader()
+    print(vec_loader('apple'))
+
+    
