@@ -55,7 +55,9 @@ evaluation framework of word vectors
 
 
 ## Usage
-[Gensim-data](https://github.com/RaRe-Technologies/gensim-data)のモデルは全て使用可能.
+[Gensim-data](https://github.com/RaRe-Technologies/gensim-data)のモデルは全て使用可能.  
+初回読み込み時にデータをダウンロードし， pickle形式で data/ に保存する．  
+デフォルトは `glove-wiki-gigaword-100`
 ```bash
 python3 word2vec.py -m glove-wiki-gigaword-100
 
