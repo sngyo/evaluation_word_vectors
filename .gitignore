@@ -1,3 +1,4 @@
 *.pickle
 .venv/
 .vscode/
+Pipfile.lock
