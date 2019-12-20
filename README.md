@@ -20,13 +20,23 @@ evaluation framework of word vectors
     あと、やはり他でやった作業をそのまま転用するのはあまりにレポートと
     して手抜き感があるので、今回のレポート用にオリジナル作業を入れるよ
     うにしてください。(どの部分がオリジナルかを明記して)
-- [ ] 共同レポート可能かチェック
+- [x] 共同レポート可能かチェック
+  - > 現在，二人で共同作業をしてそれぞれ異なるタイプのデータセットを用意
+  するなどして検証の準備を行なっています．レポートに関しても共同で一つの
+  ものを作成し(それぞれ提出する)，その中でどの部分を担当している，
+  などを記載すればよろしいのでしょうか？
+  > はい、役割分担を明確に記述してください。
+  
 - [x] github化
 - [ ] gensim以外でword2vecのpretrained modelで使えそうなもの探す
 - [ ] Survey
-- [ ] 里形との分担
+- [x] 里形との分担
 - [ ] 評価用データセット探す
+  - [x] WordSim353, SimLex999のLoading Script作成 (WIP @takasago)
+  - syntactic性をはかる方が欲しい
 - [ ] 評価の手法考えて実装
+  - [ ] とりあえず cos類似度で検証
+  - [ ] 他の手法も試せたら比較検証できる
 - [ ] レポート
 
 
@@ -47,8 +57,9 @@ evaluation framework of word vectors
 
 ### @sngyo's Ideas
 - 大きいスコープでざっくり見るのと、Domain Specific なものを別々に検証できるといいかも？
+  - @shoya's Wine Embeddings
 - Word to Sentence Vector Space で作成する word embedding の精度検証にも役立ちそう、というかそれで検証していい精度を出せるものが作れたら論文にできない？
-- @shoya 提案の数値を含めた Embedding も手法を考えてみたい。
+  - 作ってみる？
 - ちゃんとSurveyしないとわからないけど，semanticな判定とsyntacticな判定も行えそう．
   - fast <-> faster  (syntactic)
   - fast <-> rapid  (semantic)
