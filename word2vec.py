@@ -1,10 +1,11 @@
 import os
 import sys
 import pickle
-import gensim
-import gensim.downloader as api
 import argparse
 
+import gensim
+import gensim.downloader as api
+import numpy as np
 
 # load available model names
 MODEL_NAMES = []
@@ -54,6 +55,15 @@ class Word2Vec():
     def algebraic_operation(self, pos=[], neg=[]):
         # return pos[0] + pos[1] + ... - neg[0] - neg[1]...
         return self.model.most_similar(positive=pos, negative=neg)
+    
+    def get_cosine_similarity(self, word_label_1, word_label_2):
+        vec1 = self._get_vec(word_label_1)
+        vec2 = self._get_vec(word_label_2)
+        dot = np.dot(vec1, vec2)
+        norm1 = np.linalg.norm(vec1)
+        norm2 = np.linalg.norm(vec2)
+        cos = dot / (norm1 * norm2)
+        return cos
 
 
 # for debug
@@ -71,7 +81,6 @@ if __name__ == "__main__":
     
     vec_loader = Word2Vec(modelname=args.model)
     word_label = input('test word label: ')
-
     
     # show word vector itself
     # print(vec_loader(word_label))
@@ -91,3 +100,6 @@ if __name__ == "__main__":
     for word in sim_lis:
         print(word)
     
+    # show cosine similarity between 2 words
+    print(vec_loader.get_cosine_similarity("coast", "shore"))
+
