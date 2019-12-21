@@ -25,15 +25,15 @@ evaluation framework of word vectors
   するなどして検証の準備を行なっています．レポートに関しても共同で一つの
   ものを作成し(それぞれ提出する)，その中でどの部分を担当している，
   などを記載すればよろしいのでしょうか？
-  > はい、役割分担を明確に記述してください。
+  - > はい、役割分担を明確に記述してください。
   
 - [x] github化
-- [ ] gensim以外でword2vecのpretrained modelで使えそうなもの探す
-- [ ] Survey
+- [ ] ~~gensim以外でword2vecのpretrained modelで使えそうなもの探す~~
+- [x] Survey
 - [x] 里形との分担
 - [ ] 評価用データセット探す
   - [x] WordSim353, SimLex999のLoading Script作成 (WIP @takasago)
-  - syntactic性をはかる方が欲しい
+  - syntactic性をはかるデータセットも欲しい
 - [ ] 評価の手法考えて実装
   - [ ] とりあえず cos類似度で検証
   - [ ] 他の手法も試せたら比較検証できる
@@ -64,6 +64,13 @@ evaluation framework of word vectors
   - fast <-> faster  (syntactic)
   - fast <-> rapid  (semantic)
 
+- BERT で作成した word embedding が word2vec とかとどんなふうに違うのか定量的に評価できたらいいんじゃない？
+  - 流れとしては，
+  1. 研究室でのSCAINプロジェクト
+  2. 賢いword embedding が欲しい
+  3. 比較する方法があると嬉しいと思って作った
+  4. 最近NLPで流行のBERTを使用する場合，どんな違いが生まれるか？
+
 
 ## Usage
 [Gensim-data](https://github.com/RaRe-Technologies/gensim-data)のモデルは全て使用可能.  
@@ -85,8 +92,7 @@ test word label: apple
 ('hewlett', 0.6516579985618591)
 ```
 
-BERTは jupyter notebook を使用している．
-commitする際には，Cell -> All Output -> Clear で余計なものを削除してから行うこと
+jupyter notebookをcommitする際には，Cell -> All Output -> Clear で余計なものを削除してから行うこと
 jupter labの場合は Edit -> Clear All Output
 
 
@@ -95,7 +101,4 @@ jupter labの場合は Edit -> Clear All Output
 ## References
 - [単語分散表現の最適な次元数を決めるための指針](https://qiita.com/Hironsan/items/01fd880f1522e2025a78)
 - [The Role of Context Types and Dimensionality in Learning Word Embeddings](https://arxiv.org/abs/1601.00893)
-- [How to evaluate word embeddings](https://www.quora.com/How-do-I-evaluate-word-embeddings)
-
-
-
+- [How to evaluate word embeddings](https://www.quora.com/How-do-I-evaluate-word-embeddings)B

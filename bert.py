@@ -12,7 +12,7 @@ MODEL_LS = ['bert-base-uncased']  # TODO loading data/bert_model/*
 # make an argument parser
 parser = argparse.ArgumentParser()
 parser.add_argument(
-    "--model", "-m", metavar='MODEL', choices=MODEL_LS,
+    "--model", "-m", metavar='MODEL', choices=MODEL_LS, default=MODEL_LS[0],
     help='loading local model among: ' + ' | '.join(MODEL_LS)\
     + ' (default: ' + MODEL_LS[0]
 )
@@ -66,6 +66,14 @@ def get_sum_word_vecs(token_embeddings):
     return token_vecs_sum
 
 
+def get_sentence_vec(encoded_layers):
+    # this sentence vec is just the average of all embedded tokens
+    # TODO remove [CLS], [SEP] or '.' etc.
+    token_vecs = encoded_layers[-1][0]  # last_layer, batch_id:0
+    sentence_embedding = torch.mean(token_vecs, dim=0)
+    return sentence_embedding
+
+
 def main():
     text = input("text: ")
     tokens_ts, segments_ts = text2token(text)
@@ -82,10 +90,9 @@ def main():
     token_embeddings = get_token_embeddings(encoded_layers)
     sum_word_vecs = get_sum_word_vecs(token_embeddings)
 
-    print(len(sum_word_vecs))
-    print(len(sum_word_vecs[0]))
+    sentence_vec = get_sentence_vec(encoded_layers)
 
-
+    
 if __name__ == "__main__":
     main()
     
