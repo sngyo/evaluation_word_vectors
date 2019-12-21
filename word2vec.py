@@ -74,7 +74,7 @@ if __name__ == "__main__":
 
     
     # show word vector itself
-    # print(vec_loader(word_label))
+    # print(type(vec_loader(word_label)))
 
     # show 10 most similar words
     sim_lis = vec_loader.most_similar(word_label)
@@ -90,4 +90,3 @@ if __name__ == "__main__":
     print('(-) ' + str(neg))
     for word in sim_lis:
         print(word)
-    

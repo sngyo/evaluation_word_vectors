@@ -85,6 +85,10 @@ test word label: apple
 ('hewlett', 0.6516579985618591)
 ```
 
+BERTは jupyter notebook を使用している．
+commitする際には，Cell -> All Output -> Clear で余計なものを削除してから行うこと
+jupter labの場合は Edit -> Clear All Output
+
 
 ## Results
 
