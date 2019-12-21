@@ -8,7 +8,7 @@ import argparse
 
 # load available model names
 MODEL_NAMES = []
-with open("data/model_names.txt") as f:
+with open("data/word2vec/model_names.txt") as f:
     for line in f:
         MODEL_NAMES.append(line.replace('\n', ''))
 
@@ -22,10 +22,10 @@ class Word2Vec():
         return self._get_vec(word_label)
         
     def _load_word2vec(self):
-        os.makedirs('data/', exist_ok=True)
+        os.makedirs('data/word2vec', exist_ok=True)
         
         # load cache file if exists
-        cache_filename = 'data/' + self.modelname + '.pickle'
+        cache_filename = 'data/word2vec/' + self.modelname + '.pickle'
         if os.path.exists(cache_filename):
             with open(cache_filename, 'rb') as f:
                 print('loading from cache')
