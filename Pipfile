@@ -9,6 +9,7 @@ verify_ssl = true
 pandas = "*"
 gensim = "*"
 numpy = "*"
+scipy = "*"
 
 [requires]
 python_version = "3.7"
