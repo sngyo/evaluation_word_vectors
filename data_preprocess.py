@@ -69,7 +69,7 @@ if __name__ == "__main__":
             "name": "MEN"
         }
     ]
-    modelname = "word2vec-google-news-300"
+    modelname = "glove-wiki-gigaword-100"
     w2v = Word2Vec(modelname=modelname)
     for dataset in datasets:
         print(dataset["name"])
@@ -88,6 +88,6 @@ if __name__ == "__main__":
                 target_dict["cos"].append(cos)
         result_df = pd.DataFrame.from_dict(target_dict)
         result_df.to_csv(
-            "data/similarity/w2v-{}.csv".format(dataset["name"]),
+            "data/similarity/{}-{}.csv".format(modelname, dataset["name"]),
             index=False
         )
