@@ -59,6 +59,9 @@ class Word2Vec():
     def get_cosine_similarity(self, word_label_1, word_label_2):
         vec1 = self._get_vec(word_label_1)
         vec2 = self._get_vec(word_label_2)
+        if vec1 is None or vec2 is None:
+            print(word_label_1, word_label_2)
+            return None
         dot = np.dot(vec1, vec2)
         norm1 = np.linalg.norm(vec1)
         norm2 = np.linalg.norm(vec2)
