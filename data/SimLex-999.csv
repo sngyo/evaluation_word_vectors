@@ -1,4 +1,4 @@
-word1,word2,POS,SimLex999,conc(w1),conc(w2),concQ,Assoc(USF),SimAssoc333,SD(SimLex)
+word1,word2,POS,result,conc(w1),conc(w2),concQ,Assoc(USF),SimAssoc333,SD(SimLex)
 old,new,A,1.58,2.72,2.81,2,7.25,1,0.41
 smart,intelligent,A,9.2,1.75,2.46,1,7.11,1,0.67
 hard,difficult,A,8.77,3.76,2.21,2,5.94,1,1.19
