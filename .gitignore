@@ -1,1 +1,5 @@
 *.pickle
+.venv/
+.vscode/
+Pipfile.lock
+__pycache__/
