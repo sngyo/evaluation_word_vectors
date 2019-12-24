@@ -7,9 +7,6 @@ from pytorch_pretrained_bert import BertTokenizer, BertModel
 from bert_utils import *
 
 
-
-
-
 class Bert:
     def __init__(self, model_name):
         self.csv_fname = 'data/bert_model/bert_w2v.csv'
@@ -67,7 +64,7 @@ class Bert:
         segments_ts = torch.tensor([segments_ids])
         return tokens_ts, segments_ts
 
-    def get_bert_w2v(self, word):
+    def get_bert_w2v(self, word, sentence=False):
         try:
             index = self.word_embeddings["word"].index(word)
             return self.word_embeddings["bert_embedding"][index]
@@ -77,16 +74,16 @@ class Bert:
             with torch.no_grad():
                 encoded_layers, _ = self.model(tokens_ts, segments_ts)
             
-
-            # OPTION 1
-            # sum of three last layers
-            # 0: [CLS], 1: [input word], 2:[SEP]
-            # token_embeddings = get_token_embeddings(encoded_layers)
-            # bert_w2v = get_sum_word_vecs(token_embeddings)[1]
-
-            # OPTION 2
-            # regard a sentece vec as a word embedding
-            bert_w2v = get_sentence_vec(encoded_layers)
+            if not sentence:
+                # OPTION 1
+                # sum of three last layers
+                # 0: [CLS], 1: [input word], 2:[SEP]
+                token_embeddings = get_token_embeddings(encoded_layers)
+                bert_w2v = get_sum_word_vecs(token_embeddings)[1]
+            else:
+                # OPTION 2
+                # regard a sentece vec as a word embedding
+                bert_w2v = get_sentence_vec(encoded_layers)
             
             # add "word" & corresponding word_embedding in self.word_embeddings
             self.word_embeddings["word"].append(word)
