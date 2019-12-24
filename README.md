@@ -1,4 +1,4 @@
-# evaluation_word_vectors
+fg# evaluation_word_vectors
 evaluation framework of word vectors
 
 ## Word2vec 自体の精度を評価したい (NLPの課題レポート)
@@ -101,4 +101,4 @@ jupter labの場合は Edit -> Clear All Output
 ## References
 - [単語分散表現の最適な次元数を決めるための指針](https://qiita.com/Hironsan/items/01fd880f1522e2025a78)
 - [The Role of Context Types and Dimensionality in Learning Word Embeddings](https://arxiv.org/abs/1601.00893)
-- [How to evaluate word embeddings](https://www.quora.com/How-do-I-evaluate-word-embeddings)B
+- [How to evaluate word embeddings](https://www.quora.com/How-do-I-evaluate-word-embeddings)

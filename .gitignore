@@ -2,5 +2,9 @@
 *.pt
 
 .DS_Store
+Pipfile.lock
 
 .ipynb_checkpoints/
+.venv/
+.vscode/
+__pycache__/
