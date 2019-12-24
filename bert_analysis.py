@@ -63,19 +63,14 @@ def generate_w2vs_from_csv(wiki=False):
 
 
 def analyze():
-    directory = "data/bert_model/last_layer/"
+    directory = "data/bert_model/wiki/"
     
-    men = pd.read_csv(
-        directory + "MEN_bert.csv"
-    ).dropna(inplace=True)
-    
-    simlex = pd.read_csv(
-        directory + "SimLex-999_bert.csv"
-    ).dropna(inplace=True)
-    
-    wordsim = pd.read_csv(
-        directory + "WordSim-353_bert.csv"
-    ).dropna(inplace=True)
+    men = pd.read_csv(directory + "MEN_bert.csv")
+    men.dropna(inplace=True)
+    simlex = pd.read_csv(directory + "SimLex-999_bert.csv")
+    simlex.dropna(inplace=True)
+    wordsim = pd.read_csv(directory + "WordSim-353_bert.csv")
+    wordsim.dropna(inplace=True)
     
     datasets = [
         {
@@ -101,5 +96,5 @@ def analyze():
     
         
 if __name__ == "__main__":
-    generate_w2vs_from_csv(wiki=True)
-    # analyze()
+    # generate_w2vs_from_csv(wiki=True)
+    analyze()
