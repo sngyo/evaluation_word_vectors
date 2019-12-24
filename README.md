@@ -12,7 +12,6 @@ evaluation framework of word vectors
 - step2．提案するフレームワークに入れる
 - step3．既存のものより精度がよくなっているかの指標になれば嬉しい
 
-
 ## TODO
 - [x] 先生へ連絡、返事待ち 
     > 斎藤です。システムの複数共同作成は可ですが、きちんと自分はどの分担
@@ -31,13 +30,14 @@ evaluation framework of word vectors
 - [ ] ~~gensim以外でword2vecのpretrained modelで使えそうなもの探す~~
 - [x] Survey
 - [x] 里形との分担
-- [ ] 評価用データセット探す
-  - [x] WordSim353, SimLex999のLoading Script作成 (WIP @takasago)
-  - syntactic性をはかるデータセットも欲しい
-- [ ] 評価の手法考えて実装
-  - [ ] とりあえず cos類似度で検証
-  - [ ] 他の手法も試せたら比較検証できる
+- [x] 評価用データセット探す
+  - [x] WordSim353, SimLex999のLoading Script作成
+  - ~~syntactic性をはかるデータセットも欲しい~~
+- [x] 評価の手法考えて実装
+  - [x] とりあえず cos類似度で検証
+  - [ ] ~~他の手法も試せたら比較検証できる~~
 - [ ] レポート
+  - [ ] コード・csvをzipとかで提出する？
 
 
 ## Methods
