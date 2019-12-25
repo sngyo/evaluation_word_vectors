@@ -11,7 +11,7 @@ import bert
 from bert_utils import cos_similarity
 
 
-MODEL_LS = ['bert-base-uncased']
+MODEL_LS = ['bert-base-uncased']  # TODO add another model if available
 SIM_FNAMES = ['data/WordSim-353.csv', 'data/SimLex-999.csv', 'data/MEN.csv']
 
 
@@ -29,10 +29,12 @@ MODEL_NAME = MODEL_DIR_PATH + args.model
 
 
 def generate_w2vs_from_csv(wiki=False):
+    # generate word embeddings of the words contained in csv file
+    # csv files are defined as SIM_FNAMES
     # wiki: if True, using wikipedia's first sentence to generate word vector
     
     bert_model = bert.Bert(MODEL_NAME)
-    print("Bert Class is created")
+    print("Bert Model is created")
 
     # similarity dataset
     for sim_fname in tqdm(SIM_FNAMES):
@@ -48,7 +50,8 @@ def generate_w2vs_from_csv(wiki=False):
                     bert_vec1 = bert_model.get_bert_w2v(raw_txt1, sentence=True)
                     bert_vec2 = bert_model.get_bert_w2v(raw_txt2, sentence=True)
                 except:
-                    # Disambiguation error
+                    # Disambiguation page error
+                    # FIXME for now, we skip disambiguation pages
                     sim_df.at[index, 'bert_cos'] = np.nan
                     continue
             else:
@@ -62,9 +65,8 @@ def generate_w2vs_from_csv(wiki=False):
         # print("{} is generated".format(save_fname))
 
 
-def analyze():
-    directory = "data/bert_model/wiki/"
-    
+def analyze(directory):
+    # directory: path to the parent directory of *.csv files.
     men = pd.read_csv(directory + "MEN_bert.csv")
     men.dropna(inplace=True)
     simlex = pd.read_csv(directory + "SimLex-999_bert.csv")
@@ -96,5 +98,10 @@ def analyze():
     
         
 if __name__ == "__main__":
+    # TODO implement argparse here to choose
+    # 1. generate_w2vs_from_csv(() or analyze()
+    # 2. wiki=True or False
+    # 3. directory 
+    
     # generate_w2vs_from_csv(wiki=True)
-    analyze()
+    analyze(directory = "data/bert_model/wiki/")

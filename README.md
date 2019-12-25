@@ -1,104 +1,54 @@
-fg# evaluation_word_vectors
+# evaluation_word_vectors
 evaluation framework of word vectors
 
-## Word2vec 自体の精度を評価したい (NLPの課題レポート)
-- 期限 : 2020/01/19 (sun) 23:50
-- 現在 Scain が抱える問題点の一つが、単語の分散表現の精度に大きく依存している点
-  - 分散表現自体の精度を簡単に計測できるようにしておくと便利
-  
 ## Purpose
-新しいワードベクトルを準備した時に，簡単に評価できるようなフレームワークを作る
+新しいワードベクトルを準備した時に，人間の感覚との近さを簡易的に評価したい
 - step1．ワードベクトルデータを作る
 - step2．提案するフレームワークに入れる
-- step3．既存のものより精度がよくなっているかの指標になれば嬉しい
-
-## TODO
-- [x] 先生へ連絡、返事待ち 
-    > 斎藤です。システムの複数共同作成は可ですが、きちんと自分はどの分担
-    だったかを明記してください。
-    あと、やはり他でやった作業をそのまま転用するのはあまりにレポートと
-    して手抜き感があるので、今回のレポート用にオリジナル作業を入れるよ
-    うにしてください。(どの部分がオリジナルかを明記して)
-- [x] 共同レポート可能かチェック
-  - > 現在，二人で共同作業をしてそれぞれ異なるタイプのデータセットを用意
-  するなどして検証の準備を行なっています．レポートに関しても共同で一つの
-  ものを作成し(それぞれ提出する)，その中でどの部分を担当している，
-  などを記載すればよろしいのでしょうか？
-  - > はい、役割分担を明確に記述してください。
-  
-- [x] github化
-- [ ] ~~gensim以外でword2vecのpretrained modelで使えそうなもの探す~~
-- [x] Survey
-- [x] 里形との分担
-- [x] 評価用データセット探す
-  - [x] WordSim353, SimLex999のLoading Script作成
-  - ~~syntactic性をはかるデータセットも欲しい~~
-- [x] 評価の手法考えて実装
-  - [x] とりあえず cos類似度で検証
-  - [ ] ~~他の手法も試せたら比較検証できる~~
-- [ ] レポート
-  - [ ] コード・csvをzipとかで提出する？
+- step3．人の感覚との近さを数値で獲得する．
 
 
-## Methods
-- ~~外省的評価：タスク先の(感情分析とか)性能によって評価する手法~~  ← こっちはやらない
-- 内省的評価：単語分散表現の性能を直接評価する方法。たとえば、人間が判断した単語類似度と分散表現による単語類似度の相関によって性能を評価。要するに、人間の評価に近い評価をできるようになれば良い。
-
-## 使えそうなもの
-評価用データセットとして [WordSim353](http://www.cs.technion.ac.il/~gabr/resources/data/wordsim353/)や[SimLex999](https://fh295.github.io//simlex.html)。
-
-## Ideas
-- 大きいスコープでざっくり見るのと、Domain Specific なものを別々に検証できるといいかも？ by Fukuchi-san
-
-- まずは，コサイン類似度を利用？  
-    類似語データセット(WordSim353やSimLex999)を利用  
-    word2vec, Glove, (BERT), などの各手法のコサイン類似度を比較
-
-
-### @sngyo's Ideas
-- 大きいスコープでざっくり見るのと、Domain Specific なものを別々に検証できるといいかも？
-  - @shoya's Wine Embeddings
-- Word to Sentence Vector Space で作成する word embedding の精度検証にも役立ちそう、というかそれで検証していい精度を出せるものが作れたら論文にできない？
-  - 作ってみる？
-- ちゃんとSurveyしないとわからないけど，semanticな判定とsyntacticな判定も行えそう．
-  - fast <-> faster  (syntactic)
-  - fast <-> rapid  (semantic)
-
-- BERT で作成した word embedding が word2vec とかとどんなふうに違うのか定量的に評価できたらいいんじゃない？
-  - 流れとしては，
-  1. 研究室でのSCAINプロジェクト
-  2. 賢いword embedding が欲しい
-  3. 比較する方法があると嬉しいと思って作った
-  4. 最近NLPで流行のBERTを使用する場合，どんな違いが生まれるか？
-
-
-## Usage
+## Comment
+### word2vec.py
+Word2Vecクラスが入っている．
 [Gensim-data](https://github.com/RaRe-Technologies/gensim-data)のモデルは全て使用可能.  
-初回読み込み時にデータをダウンロードし， pickle形式で data/ に保存する．  
-デフォルトは `glove-wiki-gigaword-100`
-```bash
-python3 word2vec.py -m glove-wiki-gigaword-100
+(デフォルトは `glove-wiki-gigaword-100`)  
+初回読み込み時にデータをダウンロードし， pickle形式で data/ に保存する．
 
-test word label: apple
-('microsoft', 0.7449405789375305)
-('ibm', 0.6821643710136414)
-('intel', 0.6778088212013245)
-('software', 0.6775422096252441)
-('dell', 0.6741442680358887)
-('pc', 0.6678153276443481)
-('macintosh', 0.66175377368927)
-('iphone', 0.6595611572265625)
-('ipod', 0.6534676551818848)
-('hewlett', 0.6516579985618591)
-```
+### data_preprocess.py & data_analysis.py
+`data_preprocess.py`: 類似語データセットをcsvに統一形式でまとめる
+`data_analysis.py`: 各モデルによって獲得された単語対の分散表現間のcos類似度と類似語データセットの類似度の分析実行スクリプト．
 
-jupyter notebookをcommitする際には，Cell -> All Output -> Clear で余計なものを削除してから行うこと
-jupter labの場合は Edit -> Clear All Output
+### bert.py & bert_utils.py & bert_analysis.py
+PyTorchで公開されている学習済みBERTモデルを利用．
+`bert.py`: BERTクラス
+`bert_utils.py`: cos類似度関数などのツールを保管
+`bert_analysis.py`: BERTクラスを実際に呼び出して単語の分散表現を獲得・分析実行スクリプト
 
 
-## Results
+## Future Works
+- [ ] wikipediaのsummaryのsentence vectorを賢くする
+  - [ ] tf-idfをかけることでキーワード抽出
+  - [ ] sentence vector用にfine-tuning([CLS]タグの部分がsentence vectorに相当するはず)
+- [ ] TOEFL synonym question datasetの精度でも評価できる
+- [ ] ピアソンの相関係数以外の手法で二つの分布の近さを調べる手法が欲しい．
+- [ ] usabilityの向上
+  - [ ] コメントの追加
+  - [ ] サンプルスクリプトの作成
+
 
 ## References
-- [単語分散表現の最適な次元数を決めるための指針](https://qiita.com/Hironsan/items/01fd880f1522e2025a78)
-- [The Role of Context Types and Dimensionality in Learning Word Embeddings](https://arxiv.org/abs/1601.00893)
-- [How to evaluate word embeddings](https://www.quora.com/How-do-I-evaluate-word-embeddings)
+- Lev Finkelstein, Evgeniy Gabrilovich, Yossi Matias, Ehud Rivlin, Zach Solan, Gadi Wolfman, and Eytan Ruppin, "Placing Search in Context: The Concept Revisited", ACM Transactions on Information Systems, 20(1):116-131, January 2002
+- Felix Hill, Roi Reichart and Anna Korhonen, “SimLex-999: Evaluating Semantic Models with (Genuine) Similarity Estimation”, Computational Linguistics. 2014
+- Elia Bruni, Nam Khanh Tran, and Marco Baroni. “Multimodal distributional semantics”, J. Artif. Int. Res. 49, 1 (January 2014), 1-47, 2014
+- Tomas Mikolov, Kai Chen, Greg Corrado, Jeffrey Dean, “Efficient Estimation of Word Representations in Vector Space”, arXiv preprint arXiv:1301.3781
+- Jeffrey Pennington, Richard Socher, and Christopher D. Manning, “Glove: Global vectors for word representation”, Empirical Methods in Natural Language Processing (EMNLP), pages 1532–1543, 2014
+- Piotr Bojanowski, Edouard Grave, Armand Joulin, Tomas Mikolov, “Enriching Word Vectors with Subword Information”, arXiv preprint arXiv: 1607.04606
+- Matthew Peters, Mark Neumann, Mohit Iyyer, Matt Gardner, Christopher Clark, Kenton Lee, and Luke Zettlemoyer,  “Deep contextualized word representations”, NAACL, 2018a
+- Ashish Vaswani, Noam Shazeer, Niki Parmar, Jakob Uszkoreit, Llion Jones, Aidan N Gomez, Lukasz Kaiser, and Illia Polosukhin, “Attention is all you need”, Advances in Neural Information Processing Systems, pages 6000–6010, 2017
+- Jacob Devlin, Ming-Wei Chang, Kenton Lee, Kristina Toutanova, “BERT: Pre-training of Deep Bidirectional Transformers for Language Understanding”, arXiv preprint arXiv: 1810.04805
+- Oren Melamud, David McClosky, Siddharth Patwardhan, Mohit Bansal, “The Role of Context Types and Dimensionality in Learning Word Embeddings”, NAACL, 2016
+- Tobias Schnabel, Igor Labutov, David Mimno, Thorsten Joachims, “Evaluation methods for unsupervised word embeddings”, Proceedings of the 2015 Conference on Empirical Methods in Natural Language Processing, pages 298-307, September 2015
+- Amir Bakarov, “A Survey of Word Embeddings Evaluation Methods”, arXiv preprint arXiv 1801.09536
+- Manaal Faruqui, Yulia Tsvetkov, Pushpendre Rastogi, Chris Dyer, “Problems With Evaluation of Word Embeddings Using Word Similarity Tasks”, arXiv preprint arXiv 1605.02276
+- Yulia Tsvetkov, Manaal Faruqui, Chris Dyer, “Correlation-based Intrinsic Evaluation of Word Vector Representations”, arXiv preprint arXiv 1606.06710
