@@ -1,5 +1,11 @@
 *.pickle
+*.pt
+*.png
+
+.DS_Store
+Pipfile.lock
+
+.ipynb_checkpoints/
 .venv/
 .vscode/
-Pipfile.lock
 __pycache__/

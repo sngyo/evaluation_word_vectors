@@ -1,4 +1,4 @@
-# evaluation_word_vectors
+fg# evaluation_word_vectors
 evaluation framework of word vectors
 
 ## Word2vec 自体の精度を評価したい (NLPの課題レポート)
@@ -11,7 +11,6 @@ evaluation framework of word vectors
 - step1．ワードベクトルデータを作る
 - step2．提案するフレームワークに入れる
 - step3．既存のものより精度がよくなっているかの指標になれば嬉しい
-
 
 ## TODO
 - [x] 先生へ連絡、返事待ち 
@@ -31,13 +30,14 @@ evaluation framework of word vectors
 - [ ] ~~gensim以外でword2vecのpretrained modelで使えそうなもの探す~~
 - [x] Survey
 - [x] 里形との分担
-- [ ] 評価用データセット探す
-  - [x] WordSim353, SimLex999のLoading Script作成 (WIP @takasago)
-  - syntactic性をはかるデータセットも欲しい
-- [ ] 評価の手法考えて実装
-  - [ ] とりあえず cos類似度で検証
-  - [ ] 他の手法も試せたら比較検証できる
+- [x] 評価用データセット探す
+  - [x] WordSim353, SimLex999のLoading Script作成
+  - ~~syntactic性をはかるデータセットも欲しい~~
+- [x] 評価の手法考えて実装
+  - [x] とりあえず cos類似度で検証
+  - [ ] ~~他の手法も試せたら比較検証できる~~
 - [ ] レポート
+  - [ ] コード・csvをzipとかで提出する？
 
 
 ## Methods
@@ -101,4 +101,4 @@ jupter labの場合は Edit -> Clear All Output
 ## References
 - [単語分散表現の最適な次元数を決めるための指針](https://qiita.com/Hironsan/items/01fd880f1522e2025a78)
 - [The Role of Context Types and Dimensionality in Learning Word Embeddings](https://arxiv.org/abs/1601.00893)
-- [How to evaluate word embeddings](https://www.quora.com/How-do-I-evaluate-word-embeddings)B
+- [How to evaluate word embeddings](https://www.quora.com/How-do-I-evaluate-word-embeddings)
