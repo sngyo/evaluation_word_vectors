@@ -35,6 +35,7 @@ PyTorchで公開されている学習済みBERTモデルを利用．
 - [ ] usabilityの向上
   - [ ] コメントの追加
   - [ ] サンプルスクリプトの作成
+  - [ ] 全スクリプトのjupyter notebook上での管理・可視化
 
 
 ## References
